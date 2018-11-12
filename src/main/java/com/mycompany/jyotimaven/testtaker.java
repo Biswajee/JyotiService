@@ -87,6 +87,7 @@ public class testtaker extends javax.swing.JFrame {
                         WatsonBluemixReader.textToSpeech(refinedData.option1);
                         WatsonBluemixReader.textToSpeech(refinedData.option2);
                         WatsonBluemixReader.textToSpeech(refinedData.option3);
+                        Thread.sleep(2500);
                         WatsonBluemixReader.playAudioFeedback("audio\\starting_service.wav");
                         
                         Runtime runtime = Runtime.getRuntime();
@@ -105,9 +106,26 @@ public class testtaker extends javax.swing.JFrame {
                             //Average value obtained by streaming gesture...
                             double averageValue = (double)total/counter;
 
-                            System.out.println(""+ Math.round(averageValue));
+                            int gestureResult = (int)Math.round(averageValue) + 1;
                             processStream.close();
                             processBuffer.close();
+                            
+                            if(gestureResult == 1){
+                                option1.setSelected(true);
+                                WatsonBluemixReader.playAudioFeedback("audio\\alert_result.wav");
+                                WatsonBluemixReader.textToSpeech(refinedData.option1);
+                                
+                            }
+                            else if(gestureResult == 2) {
+                                option2.setSelected(true);
+                                WatsonBluemixReader.playAudioFeedback("audio\\alert_result.wav");
+                                WatsonBluemixReader.textToSpeech(refinedData.option2);
+                            }
+                            else if(gestureResult == 3) {
+                                option3.setSelected(true);
+                                WatsonBluemixReader.playAudioFeedback("audio\\alert_result.wav");
+                                WatsonBluemixReader.textToSpeech(refinedData.option3);
+                            }
                         
                     } catch (InterruptedException ex) {
                         Logger.getLogger(testtaker.class.getName()).log(Level.SEVERE, null, ex);
