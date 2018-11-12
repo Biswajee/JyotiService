@@ -113,8 +113,7 @@ public class testtaker extends javax.swing.JFrame {
                             if(gestureResult == 1){
                                 option1.setSelected(true);
                                 WatsonBluemixReader.playAudioFeedback("audio\\alert_result.wav");
-                                WatsonBluemixReader.textToSpeech(refinedData.option1);
-                                
+                                WatsonBluemixReader.textToSpeech(refinedData.option1);  
                             }
                             else if(gestureResult == 2) {
                                 option2.setSelected(true);
@@ -126,7 +125,18 @@ public class testtaker extends javax.swing.JFrame {
                                 WatsonBluemixReader.playAudioFeedback("audio\\alert_result.wav");
                                 WatsonBluemixReader.textToSpeech(refinedData.option3);
                             }
-                        
+                            
+                            //record output if correct...
+                            if(option1.isSelected()==true && option1.getText().equals(refinedData.correct)){
+                                CorrectAns += 1;
+                            }
+                            else if(option2.isSelected()==true && option2.getText().equals(refinedData.correct)){
+                                CorrectAns += 1;
+                            }
+                            else if(option3.isSelected()==true && option3.getText().equals(refinedData.correct)){
+                                CorrectAns += 1;
+                            }
+                            
                     } catch (InterruptedException ex) {
                         Logger.getLogger(testtaker.class.getName()).log(Level.SEVERE, null, ex);
                     } catch (IOException ex) {
@@ -159,7 +169,6 @@ public class testtaker extends javax.swing.JFrame {
         option2 = new javax.swing.JRadioButton();
         option3 = new javax.swing.JRadioButton();
         infoLabel = new javax.swing.JLabel();
-        novoicebtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Jyoti - Quizzing Service");
@@ -180,6 +189,7 @@ public class testtaker extends javax.swing.JFrame {
         labeluserID.setForeground(new java.awt.Color(51, 51, 51));
         labeluserID.setText("User ID:");
 
+        userID.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
         userID.setForeground(new java.awt.Color(102, 102, 102));
 
         nextquesbtn.setText("Next Question");
@@ -225,8 +235,6 @@ public class testtaker extends javax.swing.JFrame {
         infoLabel.setForeground(new java.awt.Color(102, 102, 102));
         infoLabel.setText("<html>*Note: You can quit the test any time by clicking on quit button. Your test will not be counted towards score.</html>");
 
-        novoicebtn.setText("Disable voice feedback");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -241,7 +249,7 @@ public class testtaker extends javax.swing.JFrame {
                         .addComponent(quit))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(infoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 472, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 91, Short.MAX_VALUE)
                         .addComponent(nextquesbtn))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -252,12 +260,7 @@ public class testtaker extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(context, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(79, 79, 79)))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGap(109, 109, 109)
-                                .addComponent(novoicebtn)
-                                .addGap(14, 14, 14)))))
+                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
             .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
         );
@@ -271,17 +274,14 @@ public class testtaker extends javax.swing.JFrame {
                 .addGap(15, 15, 15)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(novoicebtn)
-                            .addComponent(userID, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(60, 60, 60)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(context, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(userID, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(labeluserID))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
+                .addGap(67, 67, 67)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(context, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(nextquesbtn, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(infoLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -372,7 +372,6 @@ public class testtaker extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel labeluserID;
     private javax.swing.JButton nextquesbtn;
-    private javax.swing.JButton novoicebtn;
     private javax.swing.JRadioButton option1;
     private javax.swing.JRadioButton option2;
     private javax.swing.JRadioButton option3;
