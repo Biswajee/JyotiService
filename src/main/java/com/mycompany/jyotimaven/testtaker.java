@@ -6,6 +6,7 @@
 package com.mycompany.jyotimaven;
 
 import com.google.gson.Gson;
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -13,6 +14,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.concurrent.CompletableFuture;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -73,6 +75,47 @@ public class testtaker extends javax.swing.JFrame {
         option2.setText(refinedData.option2);
         option3.setText(refinedData.option3);
         context.setText("<html>" + refinedData.title + "</html>");
+        
+        CompletableFuture.runAsync(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        WatsonBluemixReader.textToSpeech(refinedData.title);
+                        Thread.sleep(4000);
+                        WatsonBluemixReader.playAudioFeedback("audio\\instruction_options.wav");
+                        Thread.sleep(4000);
+                        WatsonBluemixReader.textToSpeech(refinedData.option1);
+                        WatsonBluemixReader.textToSpeech(refinedData.option2);
+                        WatsonBluemixReader.textToSpeech(refinedData.option3);
+                        WatsonBluemixReader.playAudioFeedback("audio\\starting_service.wav");
+                        
+                        Runtime runtime = Runtime.getRuntime();
+                        Process proc = runtime.exec("powershell.exe python scripts\\fingerdetect.py");
+                        InputStream processStream = proc.getInputStream();
+                        InputStream errorStream = proc.getErrorStream();
+                        BufferedReader processBuffer = new BufferedReader(new InputStreamReader(processStream), 1);
+                            String line;
+                            int total = 0, eachValue, counter = 1;
+                            while ((line = processBuffer.readLine()) != null) {
+                                eachValue = Integer.parseInt(line);
+                                total = total + eachValue;
+                                counter++;
+                            }
+
+                            //Average value obtained by streaming gesture...
+                            double averageValue = (double)total/counter;
+
+                            System.out.println(""+ Math.round(averageValue));
+                            processStream.close();
+                            processBuffer.close();
+                        
+                    } catch (InterruptedException ex) {
+                        Logger.getLogger(testtaker.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (IOException ex) {
+                        Logger.getLogger(testtaker.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            });
     }
     
     
