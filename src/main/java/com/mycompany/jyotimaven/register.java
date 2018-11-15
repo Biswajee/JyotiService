@@ -257,7 +257,7 @@ public class register extends javax.swing.JFrame {
             //Firebase Auth Register user...
             
             final String sender_email = unameTF.getText();
-
+            UserData.email = sender_email;
                 if(fnameTF.getText().isEmpty()){
                     JOptionPane.showMessageDialog(null,"Please enter your first name");
                     return;

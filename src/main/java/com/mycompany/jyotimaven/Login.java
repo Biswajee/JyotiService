@@ -84,7 +84,7 @@ public class Login extends javax.swing.JFrame {
 
         usernameTF.setFont(new java.awt.Font("HP Simplified Light", 0, 14)); // NOI18N
 
-        passwordF.setFont(new java.awt.Font("HP Simplified Light", 0, 14)); // NOI18N
+        passwordF.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
         login.setFont(new java.awt.Font("HP Simplified Light", 0, 14)); // NOI18N
         login.setText("Login");

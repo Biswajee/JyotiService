@@ -166,7 +166,8 @@ public class dashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_scorebtnActionPerformed
 
     private void logoutbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutbtnActionPerformed
-        // TODO add your handling code here:
+        dispose();
+        new logout().setVisible(true);
     }//GEN-LAST:event_logoutbtnActionPerformed
 
     /**

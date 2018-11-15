@@ -150,7 +150,7 @@
     <Component class="javax.swing.JPasswordField" name="passwordF">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="HP Simplified Light" size="14" style="0"/>
+          <Font name="Tahoma" size="14" style="0"/>
         </Property>
       </Properties>
     </Component>

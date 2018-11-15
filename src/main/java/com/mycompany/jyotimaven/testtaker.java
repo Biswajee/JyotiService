@@ -136,6 +136,9 @@ public class testtaker extends javax.swing.JFrame {
                             else if(option3.isSelected()==true && option3.getText().equals(refinedData.correct)){
                                 CorrectAns += 1;
                             }
+                            else {
+                                WatsonBluemixReader.playAudioFeedback("audio\\error_result.wav");
+                            }
                             
                     } catch (InterruptedException ex) {
                         Logger.getLogger(testtaker.class.getName()).log(Level.SEVERE, null, ex);

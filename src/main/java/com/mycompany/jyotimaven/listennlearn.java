@@ -14,6 +14,7 @@ import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.nio.charset.StandardCharsets;
 import java.util.concurrent.CompletableFuture;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -157,18 +158,22 @@ public class listennlearn extends javax.swing.JFrame {
             URL url = new URL(urlString);
             URLConnection conn = url.openConnection();
             InputStream is = conn.getInputStream();
-            JsonElement element = new JsonParser().parse(new InputStreamReader(is));
+            JsonElement element = new JsonParser().parse(new InputStreamReader(is,StandardCharsets.UTF_8));
             JsonElement articles = element.getAsJsonObject().get("articles");
             
             String title = articles.getAsJsonArray().get(i).getAsJsonObject().get("title").toString();
             String description = articles.getAsJsonArray().get(i).getAsJsonObject().get("description").toString();
             String newscontent = articles.getAsJsonArray().get(i).getAsJsonObject().get("content").toString();
-            
+            newscontent = newscontent.replaceAll("\"","");
+            newscontent = newscontent.replaceAll("\\\\","");
+            System.out.println(newscontent);
             //refining strings
             title = title.substring(1, title.length()-1);
             description = description.substring(1, description.length()-1);
-            newscontent = newscontent.substring(1, newscontent.length()-1);
+            newscontent = newscontent.substring(0, newscontent.length()-1);
+            int contentPeriodPos = newscontent.lastIndexOf(".");
             
+            newscontent = newscontent.substring(0, contentPeriodPos);
             this.content = title + description + newscontent;
             
             //formatting the json string...
