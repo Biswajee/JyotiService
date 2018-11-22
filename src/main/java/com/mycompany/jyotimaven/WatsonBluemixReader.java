@@ -5,8 +5,10 @@
  */
 package com.mycompany.jyotimaven;
 
+import com.ibm.watson.developer_cloud.service.security.IamOptions;
 import com.ibm.watson.developer_cloud.text_to_speech.v1.TextToSpeech;
 import com.ibm.watson.developer_cloud.text_to_speech.v1.model.SynthesizeOptions;
+import com.ibm.watson.developer_cloud.text_to_speech.v1.model.Voices;
 import com.ibm.watson.developer_cloud.text_to_speech.v1.util.WaveUtils;
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -30,7 +32,17 @@ public class WatsonBluemixReader {
         AudioInputStream sound = null;
         try {
             TextToSpeech service = new TextToSpeech();
-            service.setUsernameAndPassword(Keydata.BLUEMIX_USERNAME, Keydata.BLUEMIX_PASSWORD);
+            IamOptions options = new IamOptions.Builder()
+                .apiKey(Keydata.BLUEMIX_KEY)
+                .build();
+            service.setIamCredentials(options);
+            
+            service.setEndPoint("https://gateway-wdc.watsonplatform.net/text-to-speech/api");
+            
+            System.out.println(service.getEndPoint());
+//            Voices voices = service.listVoices().execute();
+//            System.out.println(voices);  
+            
             SynthesizeOptions synthesizeOptions = new SynthesizeOptions.Builder()
                     .text(stringToVoicify)
                     .voice(SynthesizeOptions.Voice.EN_US_LISAVOICE)

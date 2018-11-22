@@ -172,7 +172,7 @@ public class listennlearn extends javax.swing.JFrame {
             description = description.substring(1, description.length()-1);
             newscontent = newscontent.substring(0, newscontent.length()-1);
             int contentPeriodPos = newscontent.lastIndexOf(".");
-            
+            System.out.println(newscontent);
             newscontent = newscontent.substring(0, contentPeriodPos);
             this.content = title + description + newscontent;
             

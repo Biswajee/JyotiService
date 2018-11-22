@@ -79,7 +79,7 @@
         <dependency>
             <groupId>com.ibm.watson.developer_cloud</groupId>
             <artifactId>java-sdk</artifactId>
-            <version>6.8.0</version>
+            <version>6.9.2</version>
         </dependency>
         <dependency>
 	    <groupId>com.github.bane73</groupId>
